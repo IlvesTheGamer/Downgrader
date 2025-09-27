@@ -1,20 +1,19 @@
 extends CharacterBody2D
-
 const SPEED = 250.0
 const JUMP_VELOCITY = -320.0
 const ROLL_SPEED = 400.0
-const ROLL_DURATION = 0.4
+const ROLL_DURATION = 0.28
+const ROLL_COOLDOWN = 0.8  # Cooldown time after roll ends
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-
 var was_on_floor = false
 var jumps_left = 2  # Changed to double jump
 var coyote_time = 0.1  # Grace period for jumping after leaving ground
 var coyote_timer = 0.0
-
 # Roll variables
 var is_rolling = false
 var roll_timer = 0.0
 var roll_direction = 0
+var roll_cooldown_timer = 0.0  # Cooldown timer
 var sprite_facing_right = true  # Track sprite direction
 
 func _physics_process(delta: float) -> void:
@@ -38,9 +37,14 @@ func _physics_process(delta: float) -> void:
 		if roll_timer <= 0:
 			is_rolling = false
 			roll_timer = 0.0
+			roll_cooldown_timer = ROLL_COOLDOWN  # Start cooldown when roll ends
 	
-	# Handle roll input - can roll in air, uses sprite facing direction
-	if Input.is_action_just_pressed("ui_accept") and not is_rolling:
+	# Handle roll cooldown timer
+	if roll_cooldown_timer > 0:
+		roll_cooldown_timer -= delta
+	
+	# Handle roll input - can roll in air, uses sprite facing direction, respects cooldown
+	if Input.is_action_just_pressed("roll") and not is_rolling and roll_cooldown_timer <= 0:
 		is_rolling = true
 		roll_timer = ROLL_DURATION
 		roll_direction = 1 if sprite_facing_right else -1

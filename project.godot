@@ -15,6 +15,11 @@ run/main_scene="uid://cyaxgqfq0y12e"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Assets/icon.svg"
 
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+
 [input]
 
 roll={
