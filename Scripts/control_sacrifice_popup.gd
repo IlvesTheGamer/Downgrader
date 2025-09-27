@@ -20,72 +20,62 @@ var required_sacrifices = 1  # How many controls need to be sacrificed
 var sacrificed_controls = []
 var control_buttons = {}
 
-
 signal controls_confirmed(sacrificed_controls: Array)
 signal popup_closed()
 
-
 func _ready():
-
 	hide()
-
 	confirm_button.pressed.connect(_on_confirm_pressed)
-
 	reset_button.pressed.connect(_on_reset_pressed)
-
-	
-	# Set mouse filter to stop clicks from passing through
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	
-	# Make sure popup stays on top
 	z_index = 100
 
 func show_sacrifice_popup(level: int, required_sacrifice_count: int):
-
+	print("DEBUG: Showing sacrifice popup for level ", level, " with ", required_sacrifice_count, " sacrifices")
+	
 	required_sacrifices = required_sacrifice_count
 	sacrificed_controls.clear()
 	
 	# Update labels
 	title_label.text = "Level %d - Choose Your Sacrifice" % level
-	instruction_label.text = "You must sacrifice 1 control to proceed.\nClick on the controls you want to sacrifice:"
-	
+	instruction_label.text = "You must sacrifice %d control(s) to proceed.\nClick on the controls you want to sacrifice:" % required_sacrifice_count
 	
 	_create_control_buttons()
 	_update_confirm_button()
 	
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	show()
-	# Pause the game to prevent movement
+	popup_panel.popup_centered()
 	get_tree().paused = true
+	
+	print("DEBUG: Popup visible: ", visible)
+	print("DEBUG: Game paused: ", get_tree().paused)
 
 func _create_control_buttons():
 	# Clear existing buttons
 	for child in controls_container.get_children():
 		child.queue_free()
-		await child.tree_exited  # Wait for cleanup
 	control_buttons.clear()
 	
 	# Create buttons for each available control
 	for control_key in available_controls.keys():
-		if available_controls[control_key]["enabled"]: #if available_controls[control_key].enabled:
+		if available_controls[control_key]["enabled"]:
 			var button = Button.new()
 			button.text = available_controls[control_key].display_name
 			button.name = control_key
-			button.toggle_mode = true
-			button.custom_minimum_size = Vector2(300, 40)
-			
-			# Style the button
-			button.flat = false
-			
-			print("yep")
-			button.toggled.connect(_on_control_button_toggled.bind(control_key))
-			
 			controls_container.add_child(button)
 			control_buttons[control_key] = button
 
-func _on_control_button_toggled(control_key: String, pressed: bool):
-	print("Button toggled: ", control_key, " pressed: ", pressed)
+			button.toggle_mode = true
+			button.custom_minimum_size = Vector2(300, 40)
+			button.flat = false
+			
+			button.toggled.connect(_on_control_button_toggled.bind(control_key))
+
+func _on_control_button_toggled(button_pressed: bool, control_key: String):
+	print("Button toggled: ", control_key, " pressed: ", button_pressed)
 	
-	if pressed:
+	if button_pressed:
 		# Check if we can add more sacrifices
 		if sacrificed_controls.size() < required_sacrifices:
 			if not control_key in sacrificed_controls:
@@ -106,7 +96,7 @@ func _on_control_button_toggled(control_key: String, pressed: bool):
 	_update_confirm_button()
 
 func _update_button_states():
-	print("Updating button states. Sacrificed: ", sacrificed_controls)  # Debug
+	print("Updating button states. Sacrificed: ", sacrificed_controls)
 	var max_selections_reached = sacrificed_controls.size() >= required_sacrifices
 	
 	for control_key in control_buttons.keys():
@@ -145,13 +135,14 @@ func _update_confirm_button():
 		confirm_button.text = "Confirm Sacrifice & Start Level"
 
 func _on_confirm_pressed():
+	print("DEBUG: Confirm button pressed")
 	if sacrificed_controls.size() == required_sacrifices:
 		controls_confirmed.emit(sacrificed_controls.duplicate())
 		_close_popup()
 
 func _on_reset_pressed():
+	print("DEBUG: Reset button pressed")
 	# Reset all buttons
-	print("Resetting all selections")  # Debug
 	sacrificed_controls.clear()
 	for control_key in control_buttons.keys():
 		var button = control_buttons[control_key]
@@ -167,17 +158,22 @@ func _close_popup():
 	popup_closed.emit()
 
 func _input(event):
-	# Prevent ESC from closing popup - force player to make choice
+	# Prevent ESC from closing
 	if visible and event.is_action_pressed("ui_cancel"):
-		# Show a message that they must make a choice
 		instruction_label.text = "You MUST sacrifice controls to continue!\nClick on the controls you want to sacrifice:"
 		instruction_label.modulate = Color.YELLOW
-		
-		# Flash the instruction
 		var tween = create_tween()
 		tween.tween_property(instruction_label, "modulate", Color.WHITE, 1.0)
+		get_viewport().set_input_as_handled()
+	
+	# BLOCK CLICKS OUTSIDE - Prevents auto-close
+	if visible and event is InputEventMouseButton and event.pressed:
+		var mouse_pos = get_global_mouse_position()
+		var popup_rect = Rect2(popup_panel.global_position, popup_panel.size)
+		if not popup_rect.has_point(mouse_pos):
+			print("Clicked outside - BLOCKED!")
+			get_viewport().set_input_as_handled()
 
-# Function to call when restarting level
 func show_restart_sacrifice_popup(current_level: int, required_sacrifice_count: int):
 	title_label.text = "Restart Level %d - Choose New Sacrifice" % current_level
 	show_sacrifice_popup(current_level, required_sacrifice_count)

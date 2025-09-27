@@ -87,8 +87,3 @@ func advance_to_next_level():
 	# Called when player completes current level
 	current_level += 1
 	start_level(current_level)
-
-func _input(event):
-	# Allow R key to restart level during gameplay
-	if event.is_action_pressed("restart") and not sacrifice_popup.visible:
-		restart_current_level()

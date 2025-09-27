@@ -10,10 +10,13 @@ var disabled_controls = []
 # Level 2 requires 1 sacrifice
 var required_sacrifices = 1
 
+
+
 func _ready():
 	print("Level 2 starting")
 	sacrifice_popup.controls_confirmed.connect(_on_controls_sacrificed)
 	sacrifice_popup.popup_closed.connect(_on_popup_closed)
+	
 
 	
 	# Start level 2 with sacrifice requirement
@@ -61,7 +64,5 @@ func restart_current_level():
 	# Allow restarting with different controls
 	sacrifice_popup.show_restart_sacrifice_popup(current_level, required_sacrifices)
 
-func _input(event):
-	# Allow R key to restart level
-	if event.is_action_pressed("ui_accept") and not sacrifice_popup.visible:  # Using Enter for restart
-		restart_current_level()
+
+	
