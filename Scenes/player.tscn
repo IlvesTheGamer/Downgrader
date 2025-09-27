@@ -52,4 +52,9 @@ shape = SubResource("RectangleShape2D_onrkg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3smsa")
 autoplay = "default"
-frame_progress = 0.119222276
+frame_progress = 0.082201384
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, -1)
+zoom = Vector2(3.62, 3.62)
+position_smoothing_enabled = true
