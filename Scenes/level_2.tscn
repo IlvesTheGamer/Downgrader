@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://b5wnpyqg56c0a"]
+[gd_scene load_steps=8 format=4 uid="uid://b5wnpyqg56c0a"]
 
 [ext_resource type="Script" uid="uid://isc6uwlpxc37" path="res://Scripts/level_2.gd" id="1_1q6tm"]
 [ext_resource type="Texture2D" uid="uid://icthg8qi31wj" path="res://Assets/brackeys_platformer_assets/sprites/world_tileset.png" id="1_12fag"]
 [ext_resource type="PackedScene" uid="uid://di26se5iewoky" path="res://Scenes/player.tscn" id="2_1q6tm"]
 [ext_resource type="PackedScene" uid="uid://cq0ob75i1fm2r" path="res://Scenes/teleport.tscn" id="3_v36qu"]
+[ext_resource type="PackedScene" uid="uid://bj7xdxbvv71d6" path="res://Scenes/control_sacrifice_popup.tscn" id="5_v36qu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cggpd"]
 texture = ExtResource("1_12fag")
@@ -180,3 +181,9 @@ position = Vector2(64, -42)
 
 [node name="Teleport" parent="." instance=ExtResource("3_v36qu")]
 position = Vector2(9, -72)
+
+[node name="ControlSacrificePopup" parent="." instance=ExtResource("5_v36qu")]
+offset_left = 65.0
+offset_top = -11.0
+offset_right = 65.0
+offset_bottom = -11.0
