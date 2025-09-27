@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://cibt6xvyowj3i"]
+
+[ext_resource type="Script" uid="uid://bs7ihdgw3v6vj" path="res://key_sacrifice_pop_up.gd" id="1_v2lfg"]
+
+[sub_resource type="GDScript" id="GDScript_v2lfg"]
+script/source = "extends VBoxContainer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+"
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="KeySacrificePopUp" type="PopupPanel" parent="."]
+script = ExtResource("1_v2lfg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="KeySacrificePopUp"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 348.0
+offset_bottom = 96.0
+script = SubResource("GDScript_v2lfg")
+
+[node name="Label" type="Label" parent="KeySacrificePopUp/VBoxContainer"]
+layout_mode = 2
+text = "A sacrifice must be made. Eliminate one key."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="KeySacrificePopUp/VBoxContainer"]
+layout_mode = 2
+
+[node name="Key_W" type="TextureButton" parent="KeySacrificePopUp/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Key_A" type="TextureButton" parent="KeySacrificePopUp/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Key_S" type="TextureButton" parent="KeySacrificePopUp/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Key_D" type="TextureButton" parent="KeySacrificePopUp/VBoxContainer/HBoxContainer"]
+layout_mode = 2
