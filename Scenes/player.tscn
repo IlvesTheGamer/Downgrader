@@ -3,6 +3,7 @@
 
 [ext_resource type="Script" uid="uid://d2qb5ior16v6u" path="res://Scripts/character_body_2d.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://c5lxoic8nwlmr" path="res://Assets/brackeys_platformer_assets/sprites/knight.png" id="2_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://do3mkr40uwksf" path="res://Assets/breathe spritesheet.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://cb4kgge12h1ad" path="res://Assets/character walk spritesheet.png" id="4_fkybt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
