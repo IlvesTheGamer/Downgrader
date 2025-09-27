@@ -4,10 +4,6 @@ const SPEED = 250.0
 const JUMP_VELOCITY = -320.0
 const ROLL_SPEED = 400.0
 const ROLL_DURATION = 0.4
-const SPEED = 200.0
-const JUMP_VELOCITY = -320.0
-const ROLL_SPEED = 400.0
-const ROLL_DURATION = 0.28
 const ROLL_COOLDOWN = 0.5  # in seconds, cooldown time after roll ends
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
