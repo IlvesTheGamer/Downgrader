@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const SPEED = 250.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -320.0
-const ROLL_SPEED = 400.0
+const ROLL_SPEED = 300.0
 const ROLL_DURATION = 0.4
-const ROLL_COOLDOWN = 0.5  # in seconds, cooldown time after roll ends
+const ROLL_COOLDOWN = 0.4  # in seconds, cooldown time after roll ends
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var was_on_floor = false
@@ -19,6 +19,7 @@ var is_rolling = false
 var roll_timer = 0.0
 var roll_direction = 0
 var sprite_facing_right = true  # Track sprite direction
+var roll_notactive = ROLL_COOLDOWN
 
 func _physics_process(delta: float) -> void:
 	
@@ -41,15 +42,20 @@ func _physics_process(delta: float) -> void:
 			jumps_left = 1  # Leave 1 air jump available
 		was_on_floor = false
 	
-	# Handle roll timer
+	# Handle roll timer and cooldown
 	if is_rolling:
 		roll_timer -= delta
 		if roll_timer <= 0:
 			is_rolling = false
 			roll_timer = 0.0
-	
+			roll_notactive = ROLL_COOLDOWN
+
+	roll_notactive -= delta
+	if roll_notactive <= 0:
+			roll_notactive = 0
+
 	# Handle roll input - can roll in air, uses sprite facing direction
-	if Input.is_action_just_pressed("ui_accept") and not is_rolling:
+	if Input.is_action_just_pressed("roll") and not is_rolling and roll_notactive==0:
 		is_rolling = true
 		roll_timer = ROLL_DURATION
 		roll_direction = 1 if sprite_facing_right else -1
@@ -79,9 +85,11 @@ func _physics_process(delta: float) -> void:
 	# Handle sprite flipping and track facing direction
 	if not is_rolling:
 		if direction > 0:
+			animated_sprite.play("walking")
 			animated_sprite.flip_h = false
 			sprite_facing_right = true
 		elif direction < 0:
+			animated_sprite.play("walking")
 			animated_sprite.flip_h = true
 			sprite_facing_right = false
 	
@@ -94,5 +102,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	if velocity == Vector2.ZERO:
+		animated_sprite.play("breathing")
 	
 	move_and_slide()
