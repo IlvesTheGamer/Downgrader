@@ -1,5 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://cyaxgqfq0y12e"]
 
+[ext_resource type="Script" uid="uid://d2qb5ior16v6u" path="res://Scripts/character_body_2d.gd" id="1_6444e"]
 [ext_resource type="Texture2D" uid="uid://ds805of41oxde" path="res://Assets/New Piskel(3).png" id="2_evi0p"]
 [ext_resource type="PackedScene" uid="uid://di26se5iewoky" path="res://Scenes/player.tscn" id="2_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://cq0ob75i1fm2r" path="res://Scenes/teleport.tscn" id="3_xfk5q"]
