@@ -1,5 +1,3 @@
-
-
 # ControlSacrificePopup.gd
 extends Control
 
@@ -24,6 +22,7 @@ var control_buttons = {}
 var modal_overlay: ColorRect
 var is_popup_open = false
 var current_level_sacrifices = {}  # Track sacrifices per level: {level: [control1, control2]}
+var current_level = 1  # Track current level
 
 signal controls_confirmed(sacrificed_controls: Array)
 signal popup_closed()
@@ -36,9 +35,15 @@ func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	z_index = 100
 
+# Set the current level from GameManager
+func set_current_level(level: int):
+	current_level = level
+	print("ControlSacrificePopup: Current level set to ", level)
+
 func show_sacrifice_popup(level: int, required_sacrifice_count: int):
 	print("DEBUG: Showing sacrifice popup for level ", level, " with ", required_sacrifice_count, " sacrifices")
 	
+	current_level = level  # Update current level
 	is_popup_open = true
 	required_sacrifices = required_sacrifice_count
 	sacrificed_controls.clear()
@@ -62,23 +67,14 @@ func show_sacrifice_popup(level: int, required_sacrifice_count: int):
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	# Position in top-left corner
-	# ONLY show the PopupPanel, not our Control
 	popup_panel.position = Vector2(20, 20)
 	popup_panel.popup()
 	
-	# DON'T pause the game - just disable player input through your GameManager
-	# get_tree().paused = true  ← REMOVE THIS LINE
-	
-	# Instead, notify GameManager to disable player movement
-	popup_opened.emit()  # Add this signal
+	popup_opened.emit()
 
 func _close_popup():
 	is_popup_open = false
 	popup_panel.hide()
-	
-	# DON'T unpause the game - let GameManager handle it
-	# get_tree().paused = false  ← REMOVE THIS LINE
-	
 	popup_closed.emit()
 
 func _has_already_decided_sacrifices(level: int) -> bool:
@@ -192,7 +188,6 @@ func _on_confirm_pressed():
 	print("DEBUG: Confirm button pressed")
 	if sacrificed_controls.size() == required_sacrifices:
 		# Store the sacrifices for this level
-		var current_level = 2  # You need to get the actual current level
 		current_level_sacrifices[current_level] = sacrificed_controls.duplicate()
 		
 		controls_confirmed.emit(sacrificed_controls.duplicate())
@@ -209,22 +204,46 @@ func _on_reset_pressed():
 		button.text = "✓ " + available_controls[control_key].display_name
 	_update_confirm_button()
 
-	
-
-	
-
-
 func _input(event):
 	# ESC toggles the menu open/close (single press)
 	if event.is_action_pressed("ui_cancel"):
-		# Check the ACTUAL PopupPanel visibility, not your boolean
 		if popup_panel.visible:
 			_close_popup()
 		else:
-			var current_level = 2  # Replace with how you get current level
-			if current_level > 1:
-				show_sacrifice_popup(current_level, 1)
+			# Use the tracked current_level instead of hardcoded value
+			if current_level == 1:
+				# Show Level 1 message
+				title_label.text = "Level 1 - Tutorial"
+				instruction_label.text = "No sacrifices needed in Level 1.\nAll controls are available for the tutorial!"
+				confirm_button.visible = false
+				reset_button.visible = false
+				
+				# Clear any existing buttons
+				for child in controls_container.get_children():
+					child.queue_free()
+				
+				# Show in top-left corner
+				popup_panel.position = Vector2(20, 20)
+				popup_panel.popup()
+				
+			elif current_level > 1:
+				# Get required sacrifices for current level
+				var required_sacrifices = _get_required_sacrifices_for_level(current_level)
+				show_sacrifice_popup(current_level, required_sacrifices)
 		get_viewport().set_input_as_handled()
+
+# Helper function to get required sacrifices for a level
+func _get_required_sacrifices_for_level(level: int) -> int:
+	# Define sacrifice requirements per level
+	var requirements = {
+		1: 0,  # Level 1: No sacrifices
+		2: 1,  # Level 2: 1 sacrifice
+		3: 1,  # Level 3: 1 sacrifice
+		4: 2,  # Level 4: 2 sacrifices
+		5: 2,  # Level 5: 2 sacrifices
+		6: 3   # Level 6: 3 sacrifices
+	}
+	return requirements.get(level, 0)
 
 func show_restart_sacrifice_popup(current_level: int, required_sacrifice_count: int):
 	title_label.text = "Restart Level %d - Choose New Sacrifice" % current_level

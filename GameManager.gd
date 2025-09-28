@@ -26,8 +26,13 @@ func _ready():
 	start_level(current_level)
 
 func start_level(level: int):
-	print("Starting level: ", level)  # Debug
+	print("Starting level: ", level)
 	current_level = level
+	
+	# Set the current level in the sacrifice popup
+	sacrifice_popup.set_current_level(level)
+	
+	
 	
 	# Lock player movement at start of level
 	if player and player.has_method("lock_movement"):
