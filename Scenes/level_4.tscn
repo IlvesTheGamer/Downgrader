@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://cdyjyta7ik1ao"]
+[gd_scene load_steps=12 format=4 uid="uid://cdyjyta7ik1ao"]
 
-[ext_resource type="Script" uid="uid://bedyylaesg24x" path="res://Scripts/level_4.gd" id="1_f6i20"]
+[ext_resource type="Script" path="res://Scripts/level_4.gd" id="1_f6i20"]
 [ext_resource type="Texture2D" uid="uid://icthg8qi31wj" path="res://Assets/brackeys_platformer_assets/sprites/world_tileset.png" id="1_wi344"]
 [ext_resource type="Texture2D" uid="uid://de8yymrq3womd" path="res://Assets/New Piskel.png" id="2_f6i20"]
 [ext_resource type="PackedScene" uid="uid://di26se5iewoky" path="res://Scenes/player.tscn" id="3_dvrgg"]
+[ext_resource type="Texture2D" uid="uid://bocy3ebnmwxuf" path="res://Assets/New Piskel(3).png" id="3_wk15n"]
 [ext_resource type="PackedScene" uid="uid://cq0ob75i1fm2r" path="res://Scenes/teleport.tscn" id="4_wk15n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5a8oa"]
@@ -163,6 +164,19 @@ texture = ExtResource("1_wi344")
 2:15/0 = 0
 3:15/0 = 0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_5a8oa"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7huqf"]
+texture = ExtResource("3_wk15n")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ntyy"]
 texture = ExtResource("2_f6i20")
 0:0/0 = 0
@@ -175,6 +189,8 @@ texture = ExtResource("2_f6i20")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_5a8oa")
 sources/3 = SubResource("TileSetAtlasSource_3ntyy")
+sources/1 = SubResource("TileSetScenesCollectionSource_5a8oa")
+sources/2 = SubResource("TileSetAtlasSource_7huqf")
 
 [node name="level_4" type="Node2D"]
 script = ExtResource("1_f6i20")
