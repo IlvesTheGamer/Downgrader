@@ -1,9 +1,12 @@
 [gd_scene load_steps=7 format=4 uid="uid://cyaxgqfq0y12e"]
+[gd_scene load_steps=8 format=4 uid="uid://cyaxgqfq0y12e"]
 
 [ext_resource type="Script" path="res://Scripts/level_2.gd" id="1_7p6j4"]
+[ext_resource type="Script" uid="uid://isc6uwlpxc37" path="res://Scripts/level_2.gd" id="1_7p6j4"]
 [ext_resource type="Texture2D" uid="uid://icthg8qi31wj" path="res://Assets/brackeys_platformer_assets/sprites/world_tileset.png" id="2_8ffim"]
 [ext_resource type="PackedScene" uid="uid://di26se5iewoky" path="res://Scenes/player.tscn" id="2_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://cq0ob75i1fm2r" path="res://Scenes/teleport.tscn" id="3_xfk5q"]
+[ext_resource type="Script" uid="uid://cvhhsrcgn80bb" path="res://Scenes/teleport.gd" id="5_6444e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cggpd"]
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7p6j4"]
@@ -254,7 +257,12 @@ tile_map_data = PackedByteArray("AAAAAP//AAABAAEAAAABAP//AAABAAEAAAACAP//AAABAAE
 tile_set = SubResource("TileSet_6444e")
 
 [node name="Player" parent="." instance=ExtResource("2_xfk5q")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("2_xfk5q")]
 position = Vector2(130, 66)
 
 [node name="Teleport" parent="." instance=ExtResource("3_xfk5q")]
 position = Vector2(99, -288)
+script = ExtResource("5_6444e")
+target_position = Vector2(-5000, 900)
+
+[connection signal="body_entered" from="Teleport" to="Teleport" method="_on_teleport_body_entered"]
