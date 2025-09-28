@@ -74,6 +74,8 @@ animations = [{
 "loop": true,
 "name": &"breathing",
 "speed": 3.0
+"name": &"breathe",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -117,6 +119,8 @@ animations = [{
 "loop": true,
 "name": &"walking",
 "speed": 20.0
+"name": &"walk",
+"speed": 5.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -124,16 +128,22 @@ script = ExtResource("1_v0iea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 4.5)
+position = Vector2(-0.5, 6)
 shape = SubResource("RectangleShape2D_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.49999988, 3.3749995)
 scale = Vector2(0.53124994, 0.5234375)
+position = Vector2(-0.5, 5.7500005)
+scale = Vector2(0.46875003, 0.42187503)
 sprite_frames = SubResource("SpriteFrames_3smsa")
 animation = &"walking"
 autoplay = "breathing"
+animation = &"breathe"
+autoplay = "breathe"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-1, -1)
 zoom = Vector2(3.62, 3.62)
+zoom = Vector2(4.76, 4.76)
 position_smoothing_enabled = true

@@ -88,10 +88,12 @@ func _physics_process(delta: float) -> void:
 	if not is_rolling:
 		if direction > 0:
 			animated_sprite.play("walking")
+			animated_sprite.play("walk")
 			animated_sprite.flip_h = false
 			sprite_facing_right = true
 		elif direction < 0:
 			animated_sprite.play("walking")
+			animated_sprite.play("walk")
 			animated_sprite.flip_h = true
 			sprite_facing_right = false
 	
@@ -107,5 +109,6 @@ func _physics_process(delta: float) -> void:
 	
 	if velocity == Vector2.ZERO:
 		animated_sprite.play("breathing")
+		animated_sprite.play("breathe")
 	
 	move_and_slide()

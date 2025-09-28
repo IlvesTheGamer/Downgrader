@@ -1,6 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://cq0ob75i1fm2r"]
+[gd_scene load_steps=17 format=3 uid="uid://cq0ob75i1fm2r"]
 
 [ext_resource type="Texture2D" uid="uid://83vx2lb6uldl" path="res://Assets/brackeys_platformer_assets/sprites/coin.png" id="1_38lr0"]
+[ext_resource type="Script" path="res://Scenes/teleport.gd" id="1_e7wmj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e7wmj"]
 
@@ -98,6 +100,7 @@ animations = [{
 
 [node name="Teleport" type="Area2D"]
 scale = Vector2(0.6729827, 0.4785483)
+script = ExtResource("1_e7wmj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_e7wmj")
