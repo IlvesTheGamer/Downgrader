@@ -37,3 +37,5 @@ position = Vector2(64, -42)
 position = Vector2(9, -72)
 
 [node name="ControlSacrificePopup" parent="." instance=ExtResource("5_v36qu")]
+
+[connection signal="body_entered" from="Teleport" to="." method="_on_teleport_body_entered"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://csy0itwb6npks"]
+[gd_scene load_steps=3 format=3 uid="uid://csy0itwb6npks"]
 
 [ext_resource type="Script" uid="uid://rnnpo1wx1m80" path="res://Scripts/control_sacrifice_popup.gd" id="1_dhyxq"]
+[ext_resource type="Script" uid="uid://cvxd7xejk1oig" path="res://Scripts/popup_panel_2.gd" id="2_b2my5"]
 
 [node name="ControlSacrificePopup" type="Control"]
 layout_mode = 3
@@ -58,3 +59,18 @@ text = "Reset"
 custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 text = "Confirm Sacrifice"
+
+[node name="PopupPanel2" type="PopupPanel" parent="."]
+oversampling_override = 1.0
+position = Vector2i(1500, 0)
+visible = true
+script = ExtResource("2_b2my5")
+
+[node name="ResetButton" type="Button" parent="PopupPanel2"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 96.0
+text = "Reset"
+
+[connection signal="pressed" from="PopupPanel2/ResetButton" to="PopupPanel2" method="_on_reset_button_pressed"]
