@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+func _ready():
+	add_to_group ("Player")
 const SPEED = 200.0
 const JUMP_VELOCITY = -320.0
 const ROLL_SPEED = 300.0

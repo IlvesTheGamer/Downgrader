@@ -103,7 +103,8 @@ scale = Vector2(0.6729827, 0.4785483)
 shape = SubResource("CircleShape2D_e7wmj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2.129628, 2.0093272)
+position = Vector2(0.39702243, -0.32130426)
+scale = Vector2(2.1792557, 2.0494902)
 sprite_frames = SubResource("SpriteFrames_d8p5j")
 autoplay = "default"
 frame_progress = 0.91401684
