@@ -1,9 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://cyaxgqfq0y12e"]
 
 [ext_resource type="Script" uid="uid://d2qb5ior16v6u" path="res://Scripts/character_body_2d.gd" id="1_7p6j4"]
-[ext_resource type="Texture2D" path="res://Assets/breathe spritesheet.png" id="2_6444e"]
 [ext_resource type="Texture2D" uid="uid://c5lxoic8nwlmr" path="res://Assets/brackeys_platformer_assets/sprites/knight.png" id="3_evi0p"]
-[ext_resource type="Texture2D" path="res://Assets/character walk spritesheet.png" id="4_lsmp6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(11, 12)
