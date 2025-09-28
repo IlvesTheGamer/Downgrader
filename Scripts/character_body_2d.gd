@@ -3,7 +3,7 @@ extends CharacterBody2D
 func _ready():
 	add_to_group ("Player")
 const SPEED = 200.0
-const JUMP_VELOCITY = -320.0
+const JUMP_VELOCITY = -350.0
 const ROLL_SPEED = 300.0
 const ROLL_DURATION = 0.4
 const ROLL_COOLDOWN = 0.4  # in seconds, cooldown time after roll ends
