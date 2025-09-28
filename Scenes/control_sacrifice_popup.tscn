@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bj7xdxbvv71d6"]
+[gd_scene load_steps=2 format=3 uid="uid://csy0itwb6npks"]
 
 [ext_resource type="Script" uid="uid://rnnpo1wx1m80" path="res://Scripts/control_sacrifice_popup.gd" id="1_dhyxq"]
 
@@ -15,10 +15,15 @@ script = ExtResource("1_dhyxq")
 metadata/_edit_use_anchors_ = true
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
+oversampling_override = 1.0
+size = Vector2i(238, 115)
+visible = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
-offset_right = 230.0
-offset_bottom = 107.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 234.0
+offset_bottom = 111.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
