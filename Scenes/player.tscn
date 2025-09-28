@@ -2,11 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d2qb5ior16v6u" path="res://Scripts/character_body_2d.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://c5lxoic8nwlmr" path="res://Assets/brackeys_platformer_assets/sprites/knight.png" id="2_cvnsp"]
-[ext_resource type="Texture2D" path="res://Assets/breathe spritesheet.png" id="2_vgqql"]
-[ext_resource type="Texture2D" path="res://Assets/character walk spritesheet.png" id="4_fkybt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
-size = Vector2(11, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrdnt"]
 atlas = ExtResource("2_vgqql")
@@ -121,7 +118,6 @@ animations = [{
 script = ExtResource("1_v0iea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 6)
 shape = SubResource("RectangleShape2D_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
